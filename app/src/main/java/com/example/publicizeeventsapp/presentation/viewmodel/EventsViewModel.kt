@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 internal class EventsViewModel(
-    private val getEventsUseCase: GetEventsUseCase,
+    private val getEventsUseCase: GetEventsUseCase
 ) : ViewModel() {
 
     private val _events = MutableLiveData<List<Event>>()

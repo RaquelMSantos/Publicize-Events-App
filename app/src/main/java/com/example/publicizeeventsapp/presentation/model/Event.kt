@@ -5,7 +5,7 @@ import com.example.publicizeeventsapp.domain.entity.EventEntity
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class Events(
+internal data class Event(
     val people: List<String>?,
     val date: Long,
     val description: String,
@@ -15,7 +15,7 @@ data class Events(
     val price: Double,
     val title: String,
     val id: String
-)  : Parcelable {
+) : Parcelable {
     constructor(event: EventEntity) : this(
         people = event.people,
         date = event.date,

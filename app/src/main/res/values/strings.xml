@@ -3,4 +3,9 @@
     <string name="priceSymbol">R$</string>
     <string name="error_message">Erro ao tentar carregar os eventos!</string>
     <string name="retry">Tentar novamente</string>
+    <string name="event_description">Descrição</string>
+    <string name="event_price">Preço:</string>
+    <string name="event_date">Data:</string>
+    <string name="event_button_share">Compartilhar</string>
+    <string name="event_button_check_in">Check-In</string>
 </resources>

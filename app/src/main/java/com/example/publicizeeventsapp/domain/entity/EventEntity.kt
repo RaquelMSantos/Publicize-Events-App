@@ -1,6 +1,6 @@
 package com.example.publicizeeventsapp.domain.entity
 
-internal data class EventEntity(
+data class EventEntity(
     val people: List<String>?,
     val date: Long,
     val description: String,

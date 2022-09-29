@@ -13,4 +13,8 @@ internal class EventsRemoteDataSourceImpl(private val serviceProvider: ServicePr
     override fun getEvents(): Flow<List<EventsResponse>> {
         return flow { emit(serviceProvider.service.getEvents()) }.parseError()
     }
+
+    override fun getDetailEvent(id: String): Flow<EventsResponse> {
+        return flow { emit(serviceProvider.service.getDetailEvent(id)) }.parseError()
+    }
 }

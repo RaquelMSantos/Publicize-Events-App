@@ -1,9 +1,11 @@
 package com.example.publicizeeventsapp.di
+
 import com.example.publicizeeventsapp.data.datasource.remote.EventsRemoteDataSourceImpl
-import com.example.publicizeeventsapp.data.mapper.EventsMapper
+import com.example.publicizeeventsapp.data.mapper.EventMapper
 import com.example.publicizeeventsapp.data.repository.EventsRepositoryImpl
 import com.example.publicizeeventsapp.data.retrofit.ServiceProvider
 import com.example.publicizeeventsapp.domain.repository.EventsRepository
+import com.example.publicizeeventsapp.domain.usecase.GetDetailEventUseCase
 import com.example.publicizeeventsapp.domain.usecase.GetEventsUseCase
 import com.example.publicizeeventsapp.presentation.viewmodel.EventsViewModel
 import kotlinx.serialization.ExperimentalSerializationApi
@@ -17,19 +19,21 @@ val networkModules = module {
     }
 }
 
+@OptIn(ExperimentalSerializationApi::class)
 val dataModules = module {
-    factory <EventsRepository>{
+    factory<EventsRepository> {
         EventsRepositoryImpl(
             remoteDataSource = EventsRemoteDataSourceImpl(
                 serviceProvider = get()
             ),
-            eventsMapper = EventsMapper()
+            eventMapper = EventMapper()
         )
     }
 }
 
 val domainModules = module {
     factory { GetEventsUseCase(repository = get()) }
+    factory { GetDetailEventUseCase(repository = get()) }
 }
 
 val presentationModules = module {

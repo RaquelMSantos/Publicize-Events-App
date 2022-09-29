@@ -1,6 +1,5 @@
 package com.example.publicizeeventsapp.presentation
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,18 +11,17 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.example.publicizeeventsapp.R
 import com.example.publicizeeventsapp.databinding.FragmentEventsBinding
 import com.example.publicizeeventsapp.presentation.adapter.EventAdapter
+import com.example.publicizeeventsapp.presentation.model.Event
 import com.example.publicizeeventsapp.presentation.viewmodel.EventsViewModel
-import com.example.publicizeeventsapp.presentation.viewmodel.state.EventState
 import org.koin.androidx.viewmodel.ext.android.viewModel
+
 
 class EventsFragment : Fragment() {
 
-    private val viewModel: EventsViewModel by viewModel()
-    private val eventAdapter by lazy { EventAdapter() }
     private lateinit var binding: FragmentEventsBinding
-
-    companion object {
-        fun newInstance() = EventsFragment()
+    private val viewModel: EventsViewModel by viewModel()
+    private val eventAdapter by lazy {
+        EventAdapter { event -> onClickItem(event) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,5 +67,22 @@ class EventsFragment : Fragment() {
                 R.string.retry
             ) { _, _ -> viewModel.getEvents() }.setCancelable(false)
             .show()
+    }
+
+    private fun onClickItem(event: Event) {
+        val args = Bundle()
+        val fragment: Fragment = DetailEventFragment()
+        args.putParcelable(EVENT_KEY_BUNDLE, event)
+        fragment.arguments = args
+        activity?.supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.container, fragment)
+            ?.addToBackStack(BACK_STACK_KEY)
+            ?.commit()
+    }
+
+    companion object {
+        fun newInstance() = EventsFragment()
+        private const val EVENT_KEY_BUNDLE = "event_key"
+        private const val BACK_STACK_KEY = "back_stack_key"
     }
 }

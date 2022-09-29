@@ -1,60 +1,83 @@
 package com.example.publicizeeventsapp.presentation
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.format.DateFormat
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.publicizeeventsapp.R
+import com.example.publicizeeventsapp.databinding.FragmentDetailEventBinding
+import com.example.publicizeeventsapp.presentation.model.Event
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DetailEventFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DetailEventFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+    private lateinit var binding: FragmentDetailEventBinding
+    private var event: Event? = null
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val args = this.arguments
+        args.let {
+            event = args?.getParcelable(EVENT_KEY_BUNDLE)
+            setupView()
         }
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_detail_event, container, false)
+    ): View {
+        binding = FragmentDetailEventBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DetailEventFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DetailEventFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    private fun setupView() {
+        with(binding) {
+            titleEventTextView.text = event?.title
+            dateTextView.text = convertDate(event?.date)
+            priceTextView.text = event?.price.toString()
+            descriprionTextView.text = event?.description
+
+            context?.let { it1 ->
+                Glide
+                    .with(it1)
+                    .load(event?.image)
+                    .centerCrop()
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .into(imageEvent)
             }
+            shareButton.setOnClickListener { event?.let { event -> shareEventInformation(event) } }
+        }
+    }
+
+    private fun shareEventInformation(event: Event) {
+        val informationEvent = mutableListOf(
+            event.title,
+            convertDate(event.date),
+            event.price.toString(),
+            event.description
+        )
+
+        val sendIntent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, informationEvent.toString())
+            type = FORMAT_INTENT_SHARE
+        }
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
+    }
+
+    private fun convertDate(date: Long?): String = DateFormat.format(FORMAT_DATE,
+        date?.let { Date(it) }).toString()
+
+    companion object {
+        private const val EVENT_KEY_BUNDLE = "event_key"
+        private const val FORMAT_DATE = "dd/MM/yyyy"
+        private const val FORMAT_INTENT_SHARE = "text/plain"
     }
 }

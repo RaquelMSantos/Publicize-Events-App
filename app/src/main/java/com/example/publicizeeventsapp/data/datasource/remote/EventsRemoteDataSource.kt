@@ -5,4 +5,5 @@ import kotlinx.coroutines.flow.Flow
 
 internal interface EventsRemoteDataSource {
     fun getEvents(): Flow<List<EventsResponse>>
+    fun getDetailEvent(id: String): Flow<EventsResponse>
 }
