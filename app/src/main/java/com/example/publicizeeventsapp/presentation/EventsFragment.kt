@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.publicizeeventsapp.R
 import com.example.publicizeeventsapp.databinding.FragmentEventsBinding
@@ -70,19 +72,11 @@ class EventsFragment : Fragment() {
     }
 
     private fun onClickItem(event: Event) {
-        val args = Bundle()
-        val fragment: Fragment = DetailEventFragment()
-        args.putParcelable(EVENT_KEY_BUNDLE, event)
-        fragment.arguments = args
-        activity?.supportFragmentManager?.beginTransaction()
-            ?.replace(R.id.container, fragment)
-            ?.addToBackStack(BACK_STACK_KEY)
-            ?.commit()
+        val bundle = bundleOf(EVENT_KEY_BUNDLE to event)
+        view?.findNavController()?.navigate(R.id.action_eventsFragment_to_detailsFragment, bundle)
     }
 
     companion object {
-        fun newInstance() = EventsFragment()
         private const val EVENT_KEY_BUNDLE = "event_key"
-        private const val BACK_STACK_KEY = "back_stack_key"
     }
 }

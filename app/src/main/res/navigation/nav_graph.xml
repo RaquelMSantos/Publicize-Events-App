@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragment_events">
+
+    <fragment
+        android:id="@+id/fragment_events"
+        android:name="com.example.publicizeeventsapp.presentation.EventsFragment"
+        android:label="Publicize Events"
+        tools:layout="@layout/fragment_events">
+
+        <action
+            android:id="@+id/action_eventsFragment_to_detailsFragment"
+            app:destination="@id/fragment_details" />
+
+        <argument
+            android:name="dataEvent"
+            app:argType="com.example.publicizeeventsapp.presentation.model.Event" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_details"
+        android:name="com.example.publicizeeventsapp.presentation.DetailEventFragment"
+        android:label="Detalhes do Evento"
+        tools:layout="@layout/fragment_detail_event">
+
+        <action
+            android:id="@+id/action_detailsFragment_to_eventFragment"
+            app:destination="@id/fragment_events"
+            app:popUpTo="@+id/fragment_events"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+</navigation>

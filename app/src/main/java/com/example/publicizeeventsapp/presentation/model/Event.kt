@@ -1,21 +1,21 @@
 package com.example.publicizeeventsapp.presentation.model
 
-import android.os.Parcelable
 import com.example.publicizeeventsapp.domain.entity.EventEntity
-import kotlinx.parcelize.Parcelize
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@Parcelize
-internal data class Event(
-    val people: List<String>?,
-    val date: Long,
-    val description: String,
-    val image: String,
-    val longitude: Float,
-    val latitude: Float,
-    val price: Double,
-    val title: String,
-    val id: String
-) : Parcelable {
+@Serializable
+data class Event(
+    @SerialName("people") val people: List<String>?,
+    @SerialName("date") val date: Long,
+    @SerialName("description") val description: String,
+    @SerialName("image") val image: String,
+    @SerialName("longitude") val longitude: Float,
+    @SerialName("latitude") val latitude: Float,
+    @SerialName("price") val price: Double,
+    @SerialName("title") val title: String,
+    @SerialName("id") val id: String
+) : java.io.Serializable {
     constructor(event: EventEntity) : this(
         people = event.people,
         date = event.date,

@@ -21,9 +21,9 @@ class DetailEventFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val args = this.arguments
-        args.let {
-            event = args?.getParcelable(EVENT_KEY_BUNDLE)
+
+        event = arguments?.get(EVENT_KEY_BUNDLE) as Event?
+        event.let {
             setupView()
         }
     }
