@@ -2,10 +2,18 @@
     <string name="app_name">Publicize Events App</string>
     <string name="priceSymbol">R$</string>
     <string name="error_message">Erro ao tentar carregar os eventos!</string>
+    <string name="error_detail_message">Erro ao tentar carregar os detalhes do evento!</string>
     <string name="retry">Tentar novamente</string>
     <string name="event_description">Descrição</string>
     <string name="event_price">Preço:</string>
     <string name="event_date">Data:</string>
     <string name="event_button_share">Compartilhar</string>
     <string name="event_button_check_in">Check-In</string>
+    <string name="username">Nome</string>
+    <string name="email">Email</string>
+    <string name="title_check_in">Check In</string>
+    <string name="cancel">Cancelar</string>
+    <string name="check_in_success">Check In realizado com Sucesso.</string>
+    <string name="empty_fields">Todos os campos precisam ser preenchidos.</string>
+
 </resources>

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -15,6 +14,7 @@ import com.example.publicizeeventsapp.databinding.FragmentEventsBinding
 import com.example.publicizeeventsapp.presentation.adapter.EventAdapter
 import com.example.publicizeeventsapp.presentation.model.Event
 import com.example.publicizeeventsapp.presentation.viewmodel.EventsViewModel
+import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -58,21 +58,21 @@ class EventsFragment : Fragment() {
             if (state.isError) showTryAgain()
         }
 
-        viewModel.events.observe(viewLifecycleOwner) { events ->
+        viewModel.listEvent.observe(viewLifecycleOwner) { events ->
             eventAdapter.submitList(events)
         }
     }
 
     private fun showTryAgain() {
-        AlertDialog.Builder(requireContext()).setMessage(R.string.error_message)
-            .setPositiveButton(
-                R.string.retry
-            ) { _, _ -> viewModel.getEvents() }.setCancelable(false)
+        Snackbar.make(binding.eventsContainer, R.string.error_message, Snackbar.LENGTH_LONG)
+            .setAction(R.string.retry) {
+                viewModel.getEvents()
+            }
             .show()
     }
 
     private fun onClickItem(event: Event) {
-        val bundle = bundleOf(EVENT_KEY_BUNDLE to event)
+        val bundle = bundleOf(EVENT_KEY_BUNDLE to event.id)
         view?.findNavController()?.navigate(R.id.action_eventsFragment_to_detailsFragment, bundle)
     }
 

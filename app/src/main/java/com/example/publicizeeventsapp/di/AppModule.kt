@@ -7,6 +7,7 @@ import com.example.publicizeeventsapp.data.retrofit.ServiceProvider
 import com.example.publicizeeventsapp.domain.repository.EventsRepository
 import com.example.publicizeeventsapp.domain.usecase.GetDetailEventUseCase
 import com.example.publicizeeventsapp.domain.usecase.GetEventsUseCase
+import com.example.publicizeeventsapp.domain.usecase.SetCheckInUseCase
 import com.example.publicizeeventsapp.presentation.viewmodel.EventsViewModel
 import kotlinx.serialization.ExperimentalSerializationApi
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -34,12 +35,15 @@ val dataModules = module {
 val domainModules = module {
     factory { GetEventsUseCase(repository = get()) }
     factory { GetDetailEventUseCase(repository = get()) }
+    factory { SetCheckInUseCase(repository = get()) }
 }
 
 val presentationModules = module {
     viewModel {
         EventsViewModel(
-            getEventsUseCase = get()
+            getEventsUseCase = get(),
+            getDetailEventUseCase = get(),
+            setCheckInUseCase = get ()
         )
     }
 }
