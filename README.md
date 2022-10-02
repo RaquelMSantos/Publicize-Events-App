@@ -19,3 +19,8 @@ Para a navegação das telas foi utilizado o Navigation Component que facilita n
 
 ## Material Design
 Foi utilizado alguns padrões do Material Design como a padronização de cores, fontes e estilos.
+
+## Vídeo
+
+
+![Project Name](https://user-images.githubusercontent.com/39015507/193436282-beee40a8-384e-49a3-97ff-fb85b683aba1.gif)
