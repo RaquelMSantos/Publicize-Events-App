@@ -9,8 +9,8 @@ internal data class EventsResponse(
     @SerialName("date") val date: Long,
     @SerialName("description") val description: String,
     @SerialName("image") val image: String,
-    @SerialName("longitude") val longitude: Float,
-    @SerialName("latitude") val latitude: Float,
+    @SerialName("longitude") val longitude: Double,
+    @SerialName("latitude") val latitude: Double,
     @SerialName("price") val price: Double,
     @SerialName("title") val title: String,
     @SerialName("id") val id: String

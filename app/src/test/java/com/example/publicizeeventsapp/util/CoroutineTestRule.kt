@@ -1,4 +1,4 @@
-package br.com.rmso.themoviesdb.util
+package com.example.publicizeeventsapp.util
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

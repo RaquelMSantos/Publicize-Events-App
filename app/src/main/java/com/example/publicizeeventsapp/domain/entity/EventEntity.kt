@@ -5,8 +5,8 @@ data class EventEntity(
     val date: Long,
     val description: String,
     val image: String,
-    val longitude: Float,
-    val latitude: Float,
+    val longitude: Double,
+    val latitude: Double,
     val price: Double,
     val title: String,
     val id: String
